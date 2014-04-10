@@ -1,0 +1,53 @@
+// 
+// Definition of the cells.
+// Written by Sungho Hong, Computational Neuroscience Unit, Okinawa Institute of Science and Technology.
+//
+
+begintemplate L1HHLS
+    public soma, connect2target
+    
+    create soma
+    
+    proc init() {
+        soma {
+            diam = 25
+            L = 40/PI
+            insert hh
+            gnabar_hh = 0.079
+            gkbar_hh = 0.041
+        }
+    }
+	
+    obfunc connect2target() { localobj nc 
+        //$o1 target point process, optional $o2 returned NetCon
+        soma nc = new NetCon(&v(0.5), $o1)
+        nc.threshold = -10
+        return nc
+    }
+endtemplate L1HHLS
+
+
+begintemplate L1ML
+    public soma, connect2target
+    
+    create soma
+    
+    proc init() {
+        soma {
+            diam = 25
+            L = 40/PI
+            cm = 2
+            insert ml
+        
+            ek = -100
+            ena = 50
+        }
+    }
+	
+    obfunc connect2target() { localobj nc 
+        //$o1 target point process, optional $o2 returned NetCon
+        soma nc = new NetCon(&v(0.5), $o1)
+        nc.threshold = -10
+        return nc
+    }    
+endtemplate L1ML
